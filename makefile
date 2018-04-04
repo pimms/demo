@@ -1,6 +1,6 @@
-LIBS=
+LIBS= -lportaudio
 CXX := gcc
-CFLAGS = -Os -std=c99
+CFLAGS = -std=c99 -Os
 
 SOURCEDIR := src
 OBJECTDIR := obj
@@ -12,9 +12,9 @@ ifeq ($(UNAME),Darwin)
 	CFLAGS += -I/System/Library/Frameworks/OpenGL.framework/Headers/
 	CFLAGS += -I/System/Library/Frameworks/Cocoa.framework/Headers/
 	CFLAGS += -I/System/Library/Frameworks/GLUT.framework/Headers/
-	CFLAGS += -framework OpenGL
-	CFLAGS += -framework GLUT
-	CLFAGS += -Wdeprecated-declarations -Wunused-command-line-argument
+	CFLAGS += -L/usr/local/lib
+	LIBS += -framework OpenGL
+	LIBS += -framework GLUT
 endif
 
 
