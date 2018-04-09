@@ -1,25 +1,47 @@
 #include "vcore.h"
 
+#include <math.h>
+#include <stdio.h>
+
+
+void print_modelview()
+{
+    float mat[16] = { 0.f };
+    glGetFloatv(GL_MODELVIEW_MATRIX, mat);
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            printf("%5g  ", mat[i*4 + j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+void cube_face()
+{
+    glVertex3i(-1, -1, 0);
+    glVertex3i(-1,  1, 0);
+    glVertex3i( 1,  1, 0);
+    glVertex3i( 1, -1, 0);
+}
 
 void default_draw_func()
 {
-    render_clear();
+    static float rot = 0.f;
+    rot += 0.5f;
+    glPushMatrix();
 
-    glBegin(GL_TRIANGLES);
-    glVertex3f(-0.5,-0.5,0.0);
-    glVertex3f(0.5,0.0,0.0);
-    glVertex3f(0.0,0.5,0.0);
+    glRotatef(rot, 0.f, 0.f, 1.f);
+    glRotatef(sinf(rot), cosf(rot), sinf(rot), 0.f);
+    glTranslatef(0.f, 0.f, -10.f);
+    glMatrixMode(GL_MODELVIEW);
+    glBegin(GL_QUADS);
+
+    glColor3ub(100, 50, 50);
+    cube_face();
+
     glEnd();
 
-    render_swap();
+    glPopMatrix();
 }
 
-void render_clear()
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
-void render_swap()
-{
-    glutSwapBuffers();
-}

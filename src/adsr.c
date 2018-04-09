@@ -28,7 +28,7 @@
 static float calcCoef(float rate, float targetRatio);
 static void adsr_reset(adsr_t* ptr);
 
-#define ADSR_DEBUG 1
+#define ADSR_DEBUG 0
 #if ADSR_DEBUG == 0
     static void noop(const char * f,...) {}
     #define printf noop

@@ -144,10 +144,18 @@ static void audio_error(PaError err)
 static void win_resize(GLint width, GLint height)
 {
     printf("resize: %dx%d\n", width, height);
-    glViewport( 0, 0, width, height );
-    glMatrixMode( GL_PROJECTION );
+
+    glShadeModel(GL_SMOOTH);
+    glClearColor(0, 0, 0, 0);
+    glClearDepth(1);
+    glDepthFunc(GL_LEQUAL);
+    glViewport(0, 0, width, height);
+    glEnable(GL_DEPTH_TEST);
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0, (GLdouble)width, 0, (GLdouble)height);
+    gluPerspective(45.f,  (GLfloat)width/(GLfloat)height,  0.01f,  1000.f);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
     g_ctx.width = width;
     g_ctx.height = height;
@@ -163,7 +171,11 @@ static void main_loop_cb()
     }
 
     g_ctx.cur_context.update_func(0.f);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     g_ctx.cur_context.draw_func();
+    glutSwapBuffers();
+    glutPostRedisplay();
 }
 
 static int main_audio_cb(const void *input,
