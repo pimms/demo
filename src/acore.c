@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-inline float randf()
+inline static float randf()
 {
     return (float)rand()/(float)(RAND_MAX/1.f);
 }
@@ -27,10 +27,10 @@ float default_audio_func(double t)
     if (init == 0) {
         adsr_init(&kick);
         adsr_bpm(&kick, BPM);
-        adsr_attack_rate(&kick, 50);
-        adsr_decay_rate(&kick, 300);
-        adsr_sustain_level(&kick, 0.3);
-        adsr_sustain_duration(&kick, 0.1);
+        adsr_attack_rate(&kick, 99);
+        adsr_decay_rate(&kick, 5000);
+        adsr_sustain_level(&kick, 0.05);
+        adsr_sustain_duration(&kick, 0.2f);
 
         adsr_init(&snare);
         adsr_bpm(&snare, BPM);
@@ -53,10 +53,10 @@ float default_audio_func(double t)
     float val = 0.f;
 
     // Kick
-    val += sin(30 * t) * adsr_process(&kick, t);
+    val += sin(60 * t) * adsr_process(&kick, t);
 
     // Snare
-    float whiteNoise = randf() * 0.4;
+    float whiteNoise = randf() * 0.4f;
     val += whiteNoise * adsr_process(&snare, t) + sin(90*t);
 
 
@@ -73,7 +73,7 @@ float default_audio_func(double t)
             freq = 2000;
             break;
     }
-    val += sin(freq*t);
+    //val += sin(freq*t);
 
 
     return val;
