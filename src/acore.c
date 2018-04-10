@@ -1,6 +1,6 @@
 #include "acore.h"
 
-#include <math.h>
+#include <vec.h>
 #include <stdlib.h>
 #include <stdio.h>
 

@@ -23,7 +23,7 @@ add_executable(demo
         src/main.c
         src/vcore.c
         src/vcore.h
-        makefile)
+        makefile src/heightmap.h src/heightmap.c src/vec.h src/vec.c src/scene.c src/scene.h)
 
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})

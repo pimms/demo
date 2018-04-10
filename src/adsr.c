@@ -21,7 +21,7 @@
 
 #include "adsr.h"
 #include <string.h>
-#include <math.h>
+#include <vec.h>
 #include <stdio.h>
 
 

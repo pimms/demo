@@ -1,6 +1,6 @@
 #include "vcore.h"
 
-#include <math.h>
+#include <vec.h>
 #include <stdio.h>
 
 
