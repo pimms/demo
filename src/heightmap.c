@@ -59,7 +59,9 @@ void heightmap_init_xy(heightmap_t *hm, int xdim, int ydim, int res,
             const float zcoord = func(xcoord, ycoord);
 
             const int index = iy*res + ix;
-            hm->vertices[index] = {xcoord, ycoord, zcoord};
+            hm->vertices[index].x = xcoord;
+            hm->vertices[index].y = ycoord;
+            hm->vertices[index].z = zcoord;
         }
     }
 }
